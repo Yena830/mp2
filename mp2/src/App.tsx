@@ -6,7 +6,7 @@ import './App.css';
 
 function App() {
   return (
-    <Router basename="/mp2-yueyue4">
+    <Router basename="/mp2">
       <div className="App">
         <Routes>
           <Route path="/" element={<MainView />} />
