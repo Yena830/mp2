@@ -1,0 +1,414 @@
+/* 详情视图样式 */
+.dv-view {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dv-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.dv-back-link, .dv-gallery-link {
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.dv-back-link {
+  background: #6c757d;
+  color: white;
+}
+
+.dv-back-link:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+.dv-gallery-link {
+  background: #f2b90f;
+  color: white;
+}
+
+.dv-gallery-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.dv-card {
+  background: #303030;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+
+.dv-card-main {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 40px;
+  padding: 40px;
+}
+
+.dv-card-image {
+  width: 100%;
+  height: 500px;
+  background: transparent;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dv-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.dv-no-image {
+  color: #999;
+  font-size: 18px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 15px;
+}
+
+.dv-card-info h1 {
+  margin: 0 0 30px 0;
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 3px solid #3458db;
+}
+
+.dv-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  gap: 16px;
+}
+
+.dv-nav-button {
+  background: #f2b90f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 130px;
+}
+
+.dv-nav-button:disabled {
+  background: #c0c6d0;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.dv-nav-button:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(69, 162, 71, 0.25);
+}
+
+.dv-nav-status {
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.dv-basic-info {
+  background: #848484;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+}
+
+.dv-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.dv-info-row:last-child {
+  border-bottom: none;
+}
+
+.dv-label {
+  font-weight: 600;
+  color: #ffffff;
+  min-width: 100px;
+}
+
+.dv-value {
+  font-weight: 500;
+  color: #e0e7ff;
+  text-align: right;
+}
+
+.dv-info-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.dv-info-section {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dv-info-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dv-info-section h3 {
+  margin: 0 0 15px 0;
+  color: #2c3e50;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.dv-type-tags, .dv-subtype-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.dv-type-tag, .dv-subtype-tag {
+  background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.dv-subtype-tag {
+  background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+}
+
+.dv-attacks {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.dv-attack-item {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.dv-attack-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.dv-attack-header h4 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.dv-attack-cost {
+  display: flex;
+  gap: 4px;
+}
+
+.dv-energy {
+  background: #ffd700;
+  color: #333;
+  padding: 4px 8px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 24px;
+  text-align: center;
+}
+
+.dv-attack-dmg {
+  margin: 5px 0;
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.dv-attack-text {
+  margin: 5px 0 0 0;
+  color: #555;
+  line-height: 1.4;
+}
+
+.dv-weakness-list, .dv-resistance-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dv-weakness-item, .dv-resistance-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.dv-weakness-type, .dv-resistance-type {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.dv-weakness-val {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.dv-resistance-val {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.dv-card-text {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.dv-card-text p {
+  margin: 0 0 10px 0;
+  color: #555;
+  line-height: 1.5;
+}
+
+.dv-card-text p:last-child {
+  margin-bottom: 0;
+}
+
+.dv-dex-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.dv-dex-pill {
+  background: linear-gradient(45deg, #3498db 0%, #2980b9 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.dv-loading {
+  text-align: center;
+  padding: 100px;
+  font-size: 20px;
+  color: #666;
+}
+
+.dv-error {
+  text-align: center;
+  padding: 100px 20px;
+  color: #e74c3c;
+  background: #fdf2f2;
+  border-radius: 15px;
+  border: 1px solid #fecaca;
+  margin: 20px;
+}
+
+.dv-error h2 {
+  margin: 0 0 15px 0;
+  font-size: 2rem;
+  color: #c0392b;
+}
+
+.dv-error p {
+  margin: 0 0 20px 0;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 1024px) {
+  .dv-card-main {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 30px;
+  }
+  .dv-card-image {
+    height: 400px;
+  }
+  .dv-info-sections {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dv-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  .dv-card-main {
+    padding: 20px;
+  }
+  .dv-card-info h1 {
+    font-size: 2rem;
+  }
+}
+
+
+/* --- Type tags under image --- */
+.dv-left { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.dv-type-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.dv-type-pill { padding: 6px 12px; border-radius: 999px; font-size: 14px; font-weight: 700; color: #fff; }
+
+/* Color mapping by data-type (same palette as MainView) */
+.dv-type-pill[data-type="normal"]   { background: #A8A77A; color: #111; }
+.dv-type-pill[data-type="fire"]     { background: #EE8130; }
+.dv-type-pill[data-type="water"]    { background: #6390F0; }
+.dv-type-pill[data-type="electric"] { background: #F7D02C; color: #111; }
+.dv-type-pill[data-type="grass"]    { background: #7AC74C; color: #0b2e13; }
+.dv-type-pill[data-type="ice"]      { background: #96D9D6; color: #06303a; }
+.dv-type-pill[data-type="fighting"] { background: #C22E28; }
+.dv-type-pill[data-type="poison"]   { background: #A33EA1; }
+.dv-type-pill[data-type="ground"]   { background: #E2BF65; color: #3b2f1b; }
+.dv-type-pill[data-type="flying"]   { background: #A98FF3; color: #1f1147; }
+.dv-type-pill[data-type="psychic"]  { background: #F95587; }
+.dv-type-pill[data-type="bug"]      { background: #A6B91A; color: #19210a; }
+.dv-type-pill[data-type="rock"]     { background: #B6A136; color: #111; }
+.dv-type-pill[data-type="ghost"]    { background: #735797; }
+.dv-type-pill[data-type="dragon"]   { background: #6F35FC; }
+.dv-type-pill[data-type="dark"]     { background: #705746; }
+.dv-type-pill[data-type="steel"]    { background: #B7B7CE; color: #111; }
+.dv-type-pill[data-type="fairy"]    { background: #D685AD; color: #4a044e; }
+
+/* Unrecognized type fallback */
+.dv-type-pill:not([data-type]) { background: #374151; color: #e5e7eb; }
