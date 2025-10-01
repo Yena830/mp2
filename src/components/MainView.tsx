@@ -485,8 +485,12 @@ const MainView: React.FC = () => {
           )}
 
           {!hasActiveQuery && !hasSearched && (
-            <div className="search-placeholder">
-              Start typing to find your favorite Pokémon.
+            <div className="search-placeholder minimal">
+              <div className="placeholder-pikachu">
+                <img src="/mp2/pikachu.png" alt="Pikachu" />
+              </div>
+              <h2>🔥 Let's Go!</h2>
+              <p>Type to search and discover amazing Pokémon</p>
             </div>
           )}
 
@@ -645,7 +649,8 @@ const MainView: React.FC = () => {
               <Link
                 key={card.id}
                 to={`/card/${card.id}`}
-                className="card-item gallery-card"
+                
+                className={`card-item gallery-card rarity-${card.rarity?.toLowerCase() || 'common'}`}
               >
                 <div className="card-image">
                   {card.image ? (
@@ -667,17 +672,20 @@ const MainView: React.FC = () => {
               to={`/card/${card.id}`}
               className={`card-item list-card rarity-${card.rarity?.toLowerCase() || 'common'}`}
             >
-              <div className="card-image">
-                {card.image ? (
-                  <img src={card.image} alt={card.name} />
-                ) : (
-                  <div className="no-image">No Image</div>
-                )}
+              <div className="card-left">
+                <div className="card-image">
+                  {card.image ? (
+                    <img src={card.image} alt={card.name} />
+                  ) : (
+                    <div className="no-image">No Image</div>
+                  )}
+                </div>
+                {formattedDex && <span className="card-number">{formattedDex}</span>}
               </div>
               <div className="card-info">
                 <div className="card-title">
                   <h3>{card.name}</h3>
-                  {formattedDex && <span className="card-number">{formattedDex}</span>}
+
                 </div>
                 <div className="card-subtitle">
                   <span className="card-set">{card.set.name}</span>
