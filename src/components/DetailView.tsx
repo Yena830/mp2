@@ -1,27 +1,41 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { usePokemon } from '../contexts/PokemonContext';
 import { PokemonCard } from '../types/pokemon';
-import { fetchPokemonById, fetchAllPokemon, fetchPokemonIndexList, PokeApiListItem } from '../services/api';
+import { fetchPokemonById, fetchPokemonIndexList, PokeApiListItem } from '../services/api';
 import './DetailView.css';
+
+// 缓存已加载的卡片数据
+const cardCache = new Map<string, PokemonCard>();
 
 const DetailView: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { cards: allCards } = usePokemon();
+  
   const [card, setCard] = useState<PokemonCard | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [allCards, setAllCards] = useState<PokemonCard[]>([]);
-  const [listLoading, setListLoading] = useState(true);
   const [pokemonIndex, setPokemonIndex] = useState<PokeApiListItem[]>([]);
   const [indexLoading, setIndexLoading] = useState(true);
 
   useEffect(() => {
     const loadCard = async () => {
       if (!id) return;
+      
+      // 检查缓存
+      if (cardCache.has(id)) {
+        setCard(cardCache.get(id)!);
+        setLoading(false);
+        return;
+      }
+      
       try {
         setLoading(true);
         const cardData = await fetchPokemonById(id);
         setCard(cardData);
+        // 缓存数据
+        cardCache.set(id, cardData);
       } catch (err) {
         setError('Failed to load card details');
         console.error(err);
@@ -31,23 +45,6 @@ const DetailView: React.FC = () => {
     };
     loadCard();
   }, [id]);
-
-  useEffect(() => {
-    let cancelled = false;
-    const loadAllCards = async () => {
-      try {
-        setListLoading(true);
-        const cards = await fetchAllPokemon();
-        if (!cancelled) setAllCards(cards);
-      } catch (err) {
-        if (!cancelled) console.error('Failed to load Pokémon list for navigation', err);
-      } finally {
-        if (!cancelled) setListLoading(false);
-      }
-    };
-    loadAllCards();
-    return () => { cancelled = true; };
-  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -133,8 +130,8 @@ const DetailView: React.FC = () => {
     return null;
   }, [card, allCards, currentIndex, effectiveNumericId, getIdFromUrl, indexPosition, pokemonIndex]);
 
-  const isPrevDisabled = !prevTargetId || (currentIndex >= 0 ? listLoading : indexLoading);
-  const isNextDisabled = !nextTargetId || (currentIndex >= 0 ? listLoading : indexLoading);
+  const isPrevDisabled = !prevTargetId || (currentIndex >= 0 ? false : indexLoading);
+  const isNextDisabled = !nextTargetId || (currentIndex >= 0 ? false : indexLoading);
 
   const handleNavigate = (targetId: string) => {
     navigate(`/card/${targetId}`);
@@ -149,7 +146,7 @@ const DetailView: React.FC = () => {
       <div className="dv-error">
         <h2>Card not found</h2>
         <p>{error || 'The card you are looking for does not exist.'}</p>
-        <Link to="/" className="dv-back-link">Back to Search</Link>
+        <Link to="/list" className="dv-back-link">Back to Search</Link>
       </div>
     );
   }
@@ -157,8 +154,8 @@ const DetailView: React.FC = () => {
   return (
     <div className="dv-view">
       <header className="dv-header">
-        <Link to="/" className="dv-back-link">← Back to Search</Link>
-        {/* <Link to="/gallery" className="dv-gallery-link">Gallery View</Link> */}
+        <Link to="/list" className="dv-back-link">← Back to Search</Link>
+        <Link to="/gallery" className="dv-gallery-link">Gallery View</Link>
       </header>
 
       <div className="dv-card">

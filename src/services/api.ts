@@ -87,11 +87,15 @@ interface GenerationRange {
   maxDex: number;
 }
 
+// 添加缓存
 const pokemonCache = new Map<string, PokemonCard>();
 let allPokemonCache: PokemonCard[] | null = null;
 let allPokemonPromise: Promise<PokemonCard[]> | null = null;
 let pokemonIndexCache: PokeApiListItem[] | null = null;
 let pokemonIndexPromise: Promise<PokeApiListItem[]> | null = null;
+let typesCache: string[] | null = null;
+let generationsCache: string[] | null = null;
+let raritiesCache: string[] | null = null;
 
 // 控制预加载的宝可梦数量。设置得太大会拖慢首次加载。
 const MAX_POKEMON = 1000;
@@ -153,7 +157,7 @@ const cachePokemonCard = (card: PokemonCard, ...keys: (string | number | undefin
     .forEach((key) => pokemonCache.set(key, card));
 };
 
-/** ---------- 新增：通用“去空值”工具，删除空字符串/空数组/null/undefined/空对象 ---------- **/
+/** ---------- 新增：通用"去空值"工具，删除空字符串/空数组/null/undefined/空对象 ---------- **/
 const isEmptyValue = (v: any): boolean =>
   v == null ||
   v === '' ||
@@ -513,9 +517,14 @@ export const fetchAllPokemon = async (): Promise<PokemonCard[]> => {
 
 // 获取宝可梦类型
 export const fetchTypes = async (): Promise<string[]> => {
+  if (typesCache) {
+    return typesCache;
+  }
+  
   try {
     const response = await apiClient.get<{ results: PokeApiListItem[] }>('/type');
-    return response.data.results.map((t) => toTitleCase(t.name));
+    typesCache = response.data.results.map((t) => toTitleCase(t.name));
+    return typesCache;
   } catch (error) {
     console.error('Error fetching types:', error);
     return [];
@@ -524,9 +533,14 @@ export const fetchTypes = async (): Promise<string[]> => {
 
 // 获取宝可梦世代
 export const fetchGenerations = async (): Promise<string[]> => {
+  if (generationsCache) {
+    return generationsCache;
+  }
+  
   try {
     const response = await apiClient.get<{ results: PokeApiListItem[] }>('/generation');
-    return response.data.results.map((g) => toTitleCase(g.name));
+    generationsCache = response.data.results.map((g) => toTitleCase(g.name));
+    return generationsCache;
   } catch (error) {
     console.error('Error fetching generations:', error);
     return [];
@@ -535,5 +549,10 @@ export const fetchGenerations = async (): Promise<string[]> => {
 
 // 获取稀有度（模拟数据）
 export const fetchRarities = async (): Promise<string[]> => {
-  return ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary'];
+  if (raritiesCache) {
+    return raritiesCache;
+  }
+  
+  raritiesCache = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary'];
+  return raritiesCache;
 };
