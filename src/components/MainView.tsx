@@ -224,7 +224,7 @@ const MainView: React.FC = () => {
   return (
     <div className="main-view">
       <header className="main-header">
-        <h1>Pokédex - List View</h1>
+        <h1>Pokédex</h1>
         <div className="view-toggle">
           <button className="toggle-btn active">
             Search View

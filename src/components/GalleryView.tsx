@@ -92,7 +92,6 @@ const GalleryView: React.FC = () => {
     filters.hpRange.max,
   ]);
 
-  // 画廊视图的过滤逻辑
   const galleryFilteredCards = useMemo(() => {
     return cards.filter(matchesFilters);
   }, [cards, matchesFilters]);
@@ -137,7 +136,7 @@ const GalleryView: React.FC = () => {
   return (
     <div className="main-view">
       <header className="main-header">
-        <h1>Pokédex - Gallery View</h1>
+        <h1>Pokédex</h1>
         <div className="view-toggle">
           <Link to="/list" className="toggle-btn">
             Search View
