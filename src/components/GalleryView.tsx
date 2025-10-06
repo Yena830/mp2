@@ -4,28 +4,6 @@ import { usePokemon } from '../contexts/PokemonContext';
 import { PokemonCard, FilterOptions } from '../types/pokemon';
 import './MainView.css';
 
-const RARITY_ORDER = ['common', 'uncommon', 'rare', 'epic', 'legendary'];
-const RARITY_RANK = RARITY_ORDER.reduce<Record<string, number>>((acc, rarity, index) => {
-  acc[rarity] = index;
-  return acc;
-}, {});
-
-const GENERATION_ORDER = [
-  'generation i',
-  'generation ii',
-  'generation iii',
-  'generation iv',
-  'generation v',
-  'generation vi',
-  'generation vii',
-  'generation viii',
-  'generation ix'
-];
-const GENERATION_RANK = GENERATION_ORDER.reduce<Record<string, number>>((acc, generation, index) => {
-  acc[generation] = index;
-  return acc;
-}, {});
-
 const GalleryView: React.FC = () => {
   const GALLERY_PAGE_SIZE = 100;
 
@@ -159,7 +137,7 @@ const GalleryView: React.FC = () => {
   return (
     <div className="main-view">
       <header className="main-header">
-        <h1>Pokédex</h1>
+        <h1>Pokédex - Gallery View</h1>
         <div className="view-toggle">
           <Link to="/list" className="toggle-btn">
             Search View
@@ -294,10 +272,11 @@ const GalleryView: React.FC = () => {
 
       <div className="card-grid gallery-grid">
         {galleryVisibleCards.map((card) => {
-          const primaryDex = card.dexId?.[0];
-          const formattedDex = primaryDex !== undefined
-            ? `#${primaryDex.toString().padStart(3, '0')}`
-            : null;
+          // 移除未使用的变量
+          // const primaryDex = card.dexId?.[0];
+          // const formattedDex = primaryDex !== undefined
+          //   ? `#${primaryDex.toString().padStart(3, '0')}`
+          //   : null;
 
           return (
             <Link

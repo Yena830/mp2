@@ -6,10 +6,6 @@ import { searchPokemon } from '../services/api';
 import './MainView.css';
 
 const RARITY_ORDER = ['common', 'uncommon', 'rare', 'epic', 'legendary'];
-const RARITY_RANK = RARITY_ORDER.reduce<Record<string, number>>((acc, rarity, index) => {
-  acc[rarity] = index;
-  return acc;
-}, {});
 
 const GENERATION_ORDER = [
   'generation i',
@@ -22,15 +18,11 @@ const GENERATION_ORDER = [
   'generation viii',
   'generation ix'
 ];
-const GENERATION_RANK = GENERATION_ORDER.reduce<Record<string, number>>((acc, generation, index) => {
-  acc[generation] = index;
-  return acc;
-}, {});
 
 const MainView: React.FC = () => {
   const SEARCH_DEBOUNCE_MS = 1000;
 
-  const { cards, loading, error, availableGenerations, availableTypes, availableRarities } = usePokemon();
+  const { loading, error, availableGenerations, availableTypes, availableRarities } = usePokemon();
   
   // Search view states
   const [searchQuery, setSearchQuery] = useState('');
@@ -93,13 +85,6 @@ const MainView: React.FC = () => {
     };
   }, [searchQuery]);
 
-  const handleSingleSelect = (filterKey: 'series' | 'rarities', value: string | null) => {
-    setFilters(prev => ({
-      ...prev,
-      [filterKey]: value ? [value] : [],
-    }));
-  };
-
   const sortCards = useCallback((list: PokemonCard[]): PokemonCard[] => {
     const sorted = [...list];
 
@@ -119,20 +104,22 @@ const MainView: React.FC = () => {
         case 'rarity':
           aValue = (() => {
             const key = a.rarity?.toLowerCase() ?? '';
-            return key in RARITY_RANK ? RARITY_RANK[key] : Number.MAX_SAFE_INTEGER;
+            const index = RARITY_ORDER.indexOf(key);
+            return index === -1 ? Number.MAX_SAFE_INTEGER : index;
           })();
           bValue = (() => {
             const key = b.rarity?.toLowerCase() ?? '';
-            return key in RARITY_RANK ? RARITY_RANK[key] : Number.MAX_SAFE_INTEGER;
+            const index = RARITY_ORDER.indexOf(key);
+            return index === -1 ? Number.MAX_SAFE_INTEGER : index;
           })();
           break;
         case 'set': {
           const aKey = a.set?.name?.toLowerCase() ?? '';
           const bKey = b.set?.name?.toLowerCase() ?? '';
-          const aRank = aKey in GENERATION_RANK ? GENERATION_RANK[aKey] : Number.MAX_SAFE_INTEGER;
-          const bRank = bKey in GENERATION_RANK ? GENERATION_RANK[bKey] : Number.MAX_SAFE_INTEGER;
+          const aRank = GENERATION_ORDER.indexOf(aKey);
+          const bRank = GENERATION_ORDER.indexOf(bKey);
 
-          if (aRank !== bRank) {
+          if (aRank !== -1 && bRank !== -1 && aRank !== bRank) {
             return sortOrder === 'asc' ? aRank - bRank : bRank - aRank;
           }
 
@@ -237,7 +224,7 @@ const MainView: React.FC = () => {
   return (
     <div className="main-view">
       <header className="main-header">
-        <h1>Pokédex</h1>
+        <h1>Pokédex - List View</h1>
         <div className="view-toggle">
           <button className="toggle-btn active">
             Search View
